@@ -4,6 +4,14 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { config } from './config/config';
+import { StocksModule } from './stocks/stocks.module';
+import { UsersModule } from './users/users.module';
+import { OrdersModule } from './orders/orders.module';
+import { TransactionsModule } from './transactions/transactions.module';
+import { User } from './users/entities/user.entity';
+import { Stock } from './stocks/entities/stock.entity';
+import { Order } from './orders/entities/order.entity';
+import { Transaction } from './transactions/entities/transaction.entity';
 
 @Module({
   imports: [
@@ -20,11 +28,16 @@ import { config } from './config/config';
         database: configService.get<string>('database.postgresql.dbName'),
         username: configService.get<string>('database.postgresql.username'),
         password: configService.get<string>('database.postgresql.password'),
+        entities: [User, Stock, Order, Transaction],
         synchronize: true,
         logging: true,
       }),
       inject: [ConfigService],
     }),
+    StocksModule,
+    UsersModule,
+    OrdersModule,
+    TransactionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
