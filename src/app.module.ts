@@ -13,6 +13,7 @@ import { Stock } from './stocks/entities/stock.entity';
 import { Order } from './orders/entities/order.entity';
 import { Transaction } from './transactions/entities/transaction.entity';
 import { MatchingEngineModule } from './matching-engine/matching-engine.module';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { MatchingEngineModule } from './matching-engine/matching-engine.module';
     OrdersModule,
     TransactionsModule,
     MatchingEngineModule,
+    RedisModule,
   ],
   controllers: [AppController],
   providers: [AppService],
