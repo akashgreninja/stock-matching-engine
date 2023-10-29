@@ -11,6 +11,6 @@ export class User {
   @Column({ length: 100 })
   email: string;
 
-  @Column('float')
+  @Column('float', { nullable: true })
   balance: number;
 }
