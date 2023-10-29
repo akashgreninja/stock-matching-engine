@@ -24,6 +24,15 @@ export class StocksService {
     return this.stocksRepository.findOneById(id);
   }
 
+  async update(id: number, updatedPrice: number): Promise<void> {
+    const stock = await this.stocksRepository.findOneById(id);
+
+    stock.currentPrice = updatedPrice;
+    stock.updatedAt = new Date();
+
+    await this.stocksRepository.save(stock);
+  }
+
   remove(id: number): Promise<void> {
     return this.stocksRepository.delete(id);
   }

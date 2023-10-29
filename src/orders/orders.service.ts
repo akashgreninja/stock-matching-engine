@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { RedisService } from 'src/redis/redis.service';
-import { Order, OrderType } from './entities/order.entity';
+import { Order, OrderType, orderStatus } from './entities/order.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrdersRepository } from './orders.repository';
 import { User } from 'src/users/entities/user.entity';
@@ -31,5 +31,14 @@ export class OrdersService {
     } catch (error) {
       throw error;
     }
+  }
+
+  async update(id: number): Promise<void> {
+    const order = await this.ordersRepository.findById(id);
+
+    order.status = orderStatus.CLOSED;
+    order.updatedAt = new Date();
+
+    await this.ordersRepository.save(order);
   }
 }

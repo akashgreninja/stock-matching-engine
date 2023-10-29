@@ -27,6 +27,10 @@ export class StocksRepository {
     return await this.repository.save(newStock);
   }
 
+  async save(stock: Partial<Stock>): Promise<Stock> {
+    return await this.repository.save(stock);
+  }
+
   async delete(id: number): Promise<void> {
     await this.repository.delete({ id });
   }

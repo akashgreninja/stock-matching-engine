@@ -9,6 +9,6 @@ export class OrderListenerService {
 
   @OnEvent('order.placed')
   async handleOrderPlacedEvent(event: OrderPlacedEvent) {
-    await this.matchingEngineService.matchOrders();
+    await this.matchingEngineService.matchOrders(event.order.stock.id);
   }
 }

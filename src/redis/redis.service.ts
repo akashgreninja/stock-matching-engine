@@ -16,7 +16,7 @@ export class RedisService {
 
   async addOrder(order: Order): Promise<void> {
     const client = this.getClient();
-    const key = order.type === OrderType.BUY ? 'buyOrders' : 'sellOrders';
+    const key = `${order.type}Orders:${order.stock.id}`;
     const score = order.type === OrderType.BUY ? -order.price : order.price;
 
     await client.zadd(key, score.toString(), JSON.stringify(order));
@@ -24,7 +24,7 @@ export class RedisService {
 
   async removeOrder(order: Order) {
     const client = this.getClient();
-    const key = order.type === OrderType.BUY ? 'buyOrders' : 'sellOrders';
+    const key = `${order.type}Orders:${order.stock.id}`;
     await client.zrem(key, JSON.stringify(order));
   }
 }

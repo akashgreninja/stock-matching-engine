@@ -10,6 +10,9 @@ export class OrdersRepository {
     private readonly repository: Repository<Order>,
   ) {}
 
+  async findById(id: number): Promise<Order | undefined> {
+    return await this.repository.findOneBy({ id });
+  }
   async findAllByUserId(userId: number): Promise<Order[]> {
     const options: FindManyOptions = {
       where: { user: { id: userId } },
@@ -81,7 +84,6 @@ export class OrdersRepository {
   }
 
   async save(order: Partial<Order>): Promise<Order> {
-    const newOrder = this.repository.create(order);
-    return await this.repository.save(newOrder);
+    return await this.repository.save(order);
   }
 }

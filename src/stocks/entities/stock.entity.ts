@@ -1,4 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Stock {
@@ -13,4 +18,7 @@ export class Stock {
 
   @Column({ type: 'double precision' })
   currentPrice: number;
+
+  @UpdateDateColumn({ nullable: true })
+  updatedAt: Date;
 }
