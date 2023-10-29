@@ -41,12 +41,12 @@ export class Order {
   @Column({ type: 'double precision' })
   price: number;
 
-  @Column({ type: 'enum', enum: orderStatus })
+  @Column({ type: 'enum', enum: orderStatus, default: orderStatus.OPEN })
   status: orderStatus;
 
-  @Column()
+  @Column({ default: new Date() })
   placedAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ nullable: true })
   updatedAt: Date;
 }

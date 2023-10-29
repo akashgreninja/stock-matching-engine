@@ -1,12 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Order, OrderType, orderStatus } from './entities/order.entity';
-import {
-  FindManyOptions,
-  FindOneOptions,
-  FindOptionsWhere,
-  Repository,
-} from 'typeorm';
+import { FindManyOptions, Repository } from 'typeorm';
 
 @Injectable()
 export class OrdersRepository {
@@ -83,5 +78,10 @@ export class OrdersRepository {
       order: { placedAt: 'ASC' },
     };
     return await this.repository.find(options);
+  }
+
+  async save(order: Partial<Order>): Promise<Order> {
+    const newOrder = this.repository.create(order);
+    return await this.repository.save(newOrder);
   }
 }

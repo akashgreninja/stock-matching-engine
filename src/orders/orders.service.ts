@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common';
+import { RedisService } from 'src/redis/redis.service';
+import { Order, OrderType } from './entities/order.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
+import { OrdersRepository } from './orders.repository';
+import { User } from 'src/users/entities/user.entity';
+import { Stock } from 'src/stocks/entities/stock.entity';
 
 @Injectable()
 export class OrdersService {
-  create(createOrderDto: CreateOrderDto) {
-    return 'This action adds a new order';
-  }
+  constructor(
+    private readonly redisService: RedisService,
+    private readonly ordersRepository: OrdersRepository,
+  ) {}
 
-  findAll() {
-    return `This action returns all orders`;
-  }
+  async addOrder(order: CreateOrderDto) {
+    try {
+      const newOrder = new Order();
+      newOrder.user = { id: order.userId } as User;
+      newOrder.stock = { id: order.stockId } as Stock;
+      newOrder.price = order.price;
+      newOrder.quantity = order.quantity;
+      newOrder.type = order.type;
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
-  }
-
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} order`;
+      const savedOrder = await this.ordersRepository.save(newOrder);
+      await this.redisService.addOrder(savedOrder);
+      return savedOrder;
+    } catch (error) {
+      throw error;
+    }
   }
 }
