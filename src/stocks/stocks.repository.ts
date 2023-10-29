@@ -18,7 +18,7 @@ export class StocksRepository {
     return await this.repository.findOneBy({ ticker });
   }
 
-  async findAll(): Promise<Stock[] | undefined> {
+  async findAll(): Promise<Stock[]> {
     return await this.repository.find();
   }
 

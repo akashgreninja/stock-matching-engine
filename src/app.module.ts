@@ -12,6 +12,7 @@ import { User } from './users/entities/user.entity';
 import { Stock } from './stocks/entities/stock.entity';
 import { Order } from './orders/entities/order.entity';
 import { Transaction } from './transactions/entities/transaction.entity';
+import { MatchingEngineModule } from './matching-engine/matching-engine.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { Transaction } from './transactions/entities/transaction.entity';
     UsersModule,
     OrdersModule,
     TransactionsModule,
+    MatchingEngineModule,
   ],
   controllers: [AppController],
   providers: [AppService],
