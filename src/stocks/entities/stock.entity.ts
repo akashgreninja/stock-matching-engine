@@ -5,10 +5,10 @@ export class Stock {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ length: 50 })
   ticker: string;
 
-  @Column()
+  @Column({ length: 200 })
   name: string;
 
   @Column({ type: 'double precision' })

@@ -1,7 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { StocksService } from './stocks.service';
 import { CreateStockDto } from './dto/create-stock.dto';
-import { UpdateStockDto } from './dto/update-stock.dto';
 
 @Controller('stocks')
 export class StocksController {
@@ -17,14 +16,14 @@ export class StocksController {
     return this.stocksService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.stocksService.findOne(+id);
+  @Get('ticker/:ticker')
+  findOneByTicker(@Param('ticker') ticker: string) {
+    return this.stocksService.findOneByTicker(ticker);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStockDto: UpdateStockDto) {
-    return this.stocksService.update(+id, updateStockDto);
+  @Get(':id')
+  findOneById(@Param('id') id: number) {
+    return this.stocksService.findOneById(id);
   }
 
   @Delete(':id')
