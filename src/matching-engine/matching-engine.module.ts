@@ -8,5 +8,6 @@ import { TransactionsModule } from 'src/transactions/transactions.module';
   imports: [RedisModule, TransactionsModule],
   controllers: [MatchingEngineController],
   providers: [MatchingEngineService],
+  exports: [MatchingEngineService],
 })
 export class MatchingEngineModule {}

@@ -14,6 +14,7 @@ import { Order } from './orders/entities/order.entity';
 import { Transaction } from './transactions/entities/transaction.entity';
 import { MatchingEngineModule } from './matching-engine/matching-engine.module';
 import { RedisModule } from './redis/redis.module';
+import { OrderEmitterModule } from './order-emitter/order-emitter.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { RedisModule } from './redis/redis.module';
     TransactionsModule,
     MatchingEngineModule,
     RedisModule,
+    OrderEmitterModule,
   ],
   controllers: [AppController],
   providers: [AppService],
