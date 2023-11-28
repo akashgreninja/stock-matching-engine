@@ -16,6 +16,7 @@ import { MatchingEngineModule } from './matching-engine/matching-engine.module';
 import { RedisModule } from './redis/redis.module';
 import { OrderEmitterModule } from './order-emitter/order-emitter.module';
 import { PublicController } from './public/public.controller';
+import { PublicModule } from './public/public.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { PublicController } from './public/public.controller';
     MatchingEngineModule,
     RedisModule,
     OrderEmitterModule,
+    PublicModule,
   ],
   controllers: [AppController, PublicController],
   providers: [AppService],
