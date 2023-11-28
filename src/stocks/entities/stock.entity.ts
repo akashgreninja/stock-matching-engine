@@ -1,24 +1,27 @@
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
-
-@Entity()
-export class Stock {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({ length: 50 })
-  ticker: string;
-
-  @Column({ length: 200 })
-  name: string;
-
-  @Column({ type: 'double precision' })
-  currentPrice: number;
-
-  @UpdateDateColumn({ nullable: true })
-  updatedAt: Date;
-}
+import { Table, Column, Model, DataType, UpdatedAt } from 'sequelize-typescript';  
+  
+@Table({  
+  underscored: true,  
+  timestamps: false,  
+})  
+export class Stock extends Model {  
+  @Column({  
+    type: DataType.INTEGER,  
+    autoIncrement: true,  
+    primaryKey: true,  
+  })  
+  id: number;  
+  
+  @Column({ type: DataType.STRING(50) })  
+  ticker: string;  
+  
+  @Column({ type: DataType.STRING(200) })  
+  name: string;  
+  
+  @Column(DataType.DOUBLE)  
+  currentPrice: number;  
+  
+  @UpdatedAt  
+  @Column(DataType.DATE)  
+  updatedAt: Date;  
+}  

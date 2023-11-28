@@ -3,14 +3,15 @@ import { OrdersService } from './orders.service';
 import { OrdersController } from './orders.controller';
 import { RedisModule } from 'src/redis/redis.module';
 import { OrdersRepository } from './orders.repository';
-import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { Order } from './entities/order.entity';
 import { OrderEmitterModule } from 'src/order-emitter/order-emitter.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-
+import { SequelizeModule } from '@nestjs/sequelize';
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Order]),
+    SequelizeModule.forFeature([Order]),
+    
     RedisModule,
     EventEmitterModule.forRoot(),
     OrderEmitterModule,

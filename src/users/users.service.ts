@@ -19,7 +19,7 @@ export class UsersService {
     return this.usersRepository.create(user);
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: string): Promise<void> {
     return this.usersRepository.delete(id);
   }
 }

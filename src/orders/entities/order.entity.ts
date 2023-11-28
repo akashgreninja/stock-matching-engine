@@ -1,13 +1,8 @@
-import { Stock } from 'src/stocks/entities/stock.entity';
-import { User } from 'src/users/entities/user.entity';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo, UpdatedAt } from 'sequelize-typescript';  
+
+import { User } from '../../users/entities/user.entity';
+import { Stock } from '../../stocks/entities/stock.entity';  
+ 
 
 export enum OrderType {
   BUY = 'buy',
@@ -19,34 +14,50 @@ export enum orderStatus {
   CLOSED = 'closed',
 }
 
-@Entity()
-export class Order {
-  @PrimaryGeneratedColumn()
-  id: number;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'userId' })
-  user: User;
-
-  @ManyToOne(() => Stock)
-  @JoinColumn({ name: 'stockId' })
-  stock: Stock;
-
-  @Column({ type: 'enum', enum: OrderType })
-  type: OrderType;
-
-  @Column()
-  quantity: number;
-
-  @Column({ type: 'double precision' })
-  price: number;
-
-  @Column({ type: 'enum', enum: orderStatus, default: orderStatus.OPEN })
-  status: orderStatus;
-
-  @Column({ default: new Date() })
-  placedAt: Date;
-
-  @UpdateDateColumn({ nullable: true })
-  updatedAt: Date;
-}
+  
+@Table({  
+  underscored: true,  
+  timestamps: false,  
+})  
+export class Order extends Model {  
+  @Column({  
+    type: DataType.INTEGER,  
+    autoIncrement: true,  
+    primaryKey: true,  
+  })  
+  id: number;  
+  
+  @ForeignKey(() => User)  
+  @Column(DataType.INTEGER)  
+  userId: number;  
+  
+  @BelongsTo(() => User)  
+  user: User;  
+  
+  @ForeignKey(() => Stock)  
+  @Column(DataType.INTEGER)  
+  stockId: number;  
+  
+  @BelongsTo(() => Stock)  
+  stock: Stock;  
+  
+  @Column({ type: DataType.ENUM, values: Object.values(OrderType) })  
+  type: OrderType;  
+  
+  @Column(DataType.INTEGER)  
+  quantity: number;  
+  
+  @Column(DataType.DOUBLE)  
+  price: number;  
+  
+  @Column({ type: DataType.ENUM, values: Object.values(orderStatus), defaultValue: orderStatus.OPEN })  
+  status: orderStatus;  
+  
+  @Column({ type: DataType.DATE, defaultValue: DataType.NOW })  
+  placedAt: Date;  
+  
+  @UpdatedAt  
+  @Column(DataType.DATE)  
+  updatedAt: Date;  
+}  

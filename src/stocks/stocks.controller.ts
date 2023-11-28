@@ -26,8 +26,8 @@ export class StocksController {
     return this.stocksService.findOneById(id);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.stocksService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.stocksService.destroy(+id);
+  // }
 }

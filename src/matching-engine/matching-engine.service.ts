@@ -48,7 +48,7 @@ export class MatchingEngineService {
           timestamp: new Date(),
         });
 
-        this.stocksService.update(stockId, tradePrice);
+        // this.stocksService.update(stockId, tradePrice);
 
         topBuy.quantity -= tradeQuantity;
         topSell.quantity -= tradeQuantity;

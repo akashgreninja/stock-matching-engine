@@ -1,32 +1,31 @@
-import { Repository, FindOneOptions } from 'typeorm';
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './entities/user.entity';
-
-@Injectable()
-export class UsersRepository {
-  constructor(
-    @InjectRepository(User)
-    private readonly repository: Repository<User>,
-  ) {}
-
-  async findOneById(id: number): Promise<User | undefined> {
-    return await this.repository.findOneBy({ id });
-  }
-
-  async findOneByUsername(username: string): Promise<User | undefined> {
-    const options: FindOneOptions<User> = {
-      where: { username },
-    };
-    return await this.repository.findOne(options);
-  }
-
-  async create(user: Partial<User>): Promise<User> {
-    const newUser = this.repository.create(user);
-    return await this.repository.save(newUser);
-  }
-
-  async delete(id: number): Promise<void> {
-    await this.repository.delete(id);
-  }
-}
+import { Injectable } from '@nestjs/common';  
+import { InjectModel } from '@nestjs/sequelize';  
+import { User } from './entities/user.entity';  
+  
+@Injectable()  
+export class UsersRepository {  
+  constructor(  
+    @InjectModel(User)  
+    private readonly userModel: typeof User,  
+  ) {}  
+  
+  async findOneById(id: number): Promise<User | undefined> {  
+    return await this.userModel.findByPk(id);  
+  }  
+  
+  async findOneByUsername(firstName: string): Promise<User | undefined> {  
+    return await this.userModel.findOne({ where: { firstName } });  
+  }  
+  
+  async create(user: Partial<User>): Promise<User> {  
+    return await this.userModel.create(user);  
+  }  
+  
+  async createByOtp(user: Partial<User>): Promise<User> {  
+    return await this.userModel.create(user);  
+  }  
+  
+  async delete(id: string): Promise<void> {  
+    await this.userModel.destroy({ where: { id } });  
+  }  
+}  
