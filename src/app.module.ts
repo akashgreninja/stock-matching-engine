@@ -15,6 +15,7 @@ import { Transaction } from './transactions/entities/transaction.entity';
 import { MatchingEngineModule } from './matching-engine/matching-engine.module';
 import { RedisModule } from './redis/redis.module';
 import { OrderEmitterModule } from './order-emitter/order-emitter.module';
+import { PublicController } from './public/public.controller';
 
 @Module({
   imports: [
@@ -45,7 +46,7 @@ import { OrderEmitterModule } from './order-emitter/order-emitter.module';
     RedisModule,
     OrderEmitterModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, PublicController],
   providers: [AppService],
 })
 export class AppModule {}
